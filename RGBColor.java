@@ -14,8 +14,7 @@ public class RGBColor {
         }
         
         if (differCount == 3) {
-            for (int i = 0; i < 3; i++) {
-                
+            for (int i = 0; i < 3; i++) {   
                 compRGB[i] = (rgb[i] >= 128) ? rgb[i] - 128 : rgb[i] + 128;
             }
         }
