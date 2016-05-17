@@ -46,6 +46,11 @@ public class SmartWordToy {
         }
 
     }
+    
+    public void found(String word) { //share the same big table is helpful
+        char cha = 'a';
+        ftable[word.charAt(0)- cha][word.charAt(1)- cha][word.charAt(2)- cha][word.charAt(3)- cha] = true;
+    }
 
     public int minPresses(String start, String finish, String[] forbid) {
 
@@ -57,8 +62,6 @@ public class SmartWordToy {
         }
         
         if (forbid.length == 0){
-            char a = 'a';
-            char z = 'z';
             int distance = 0;
             for (int i=0; i< 4; i++) {
                 int d = Math.abs(finish.charAt(i) - start.charAt(i)) > 13 ? (26 - Math.abs(finish.charAt(i) - start.charAt(i))) : Math.abs(finish.charAt(i) - start.charAt(i));
@@ -70,14 +73,13 @@ public class SmartWordToy {
         // Start to expand until meet finish
         LinkedList<Node> bfsqueue = new LinkedList<Node>();
         LinkedList<Node> nodes = new LinkedList<Node>();
-        Set<String> founds = new HashSet<String>();
 
         bfsqueue.add(new Node(start, 0));
-        founds.add(start);
+        found(start);
 
         while (bfsqueue.size() > 0) {
             Node node = bfsqueue.get(0);
-            nodes = this.nextCandidates(node, founds);
+            nodes = this.nextCandidates(node);
             Iterator it = nodes.iterator();
             while (it.hasNext()) {
                 
@@ -88,7 +90,7 @@ public class SmartWordToy {
                 } else {
                     // not match
                     bfsqueue.add(n);
-                    founds.add(n.n);
+                    found(n.n);
                 }
             }
 
@@ -106,7 +108,7 @@ public class SmartWordToy {
     }
 
     // find possible next candidates
-    public LinkedList<Node> nextCandidates(Node node, Set<String> founds) {
+    public LinkedList<Node> nextCandidates(Node node) {
 
         LinkedList<Node> ss = new LinkedList<Node>();
         String word = node.n;
@@ -126,16 +128,36 @@ public class SmartWordToy {
             String temps = new String(w1);
             String temps1 = new String(w2);
 
-            if (!founds.contains(temps) && !this.isForbidden(temps)) {
+            if (!this.isForbidden(temps)) {
                 ss.add(new Node(temps, node.level + 1));
             }
-            if (!founds.contains(temps1) && !this.isForbidden(temps1)) {
+            if (!this.isForbidden(temps1)) {
                 ss.add(new Node(temps1,node.level + 1));
             }
 
         }
 
         return ss;
+    };
+
+    public static void main(String[] arg){
+        // aaaa, zzzz, []
+//        "zzzz"
+//        "aaaa"
+//        {"abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk"}
+//        String[] forbid = new String[]{"abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk", "abcdefghijkl abcdefghijkl abcdefghijkl abcdefghijk"};
+        
+        String start = "aaaa";
+        String finish = "mmll";
+//        String[] forbid = new String[]{"jac jbc jabd jbcd", "jab j jcd jab", "jbd jabd jbc j", "jacd jb jac jb", "jabc ja jb jc", "jabd jbd jabd jac", "jb jc jab jbd", "jc jb jacd j", "jc jb ja jd", "jd jacd jcd jc", "jbc ja jc jbc", "j jabcd ja jabc", "jc ja jabcd jab", "jc jac jbcd jac", "jbd jac jbc ja", "jcd jabc jc jab", "jbc jab jad jacd", "jbc j jac jd", "jbc jcd jc jacd", "jd jbcd jb jcd", "jabc jcd jabc jbc", "jacd jacd jd jb", "jbcd jbd jd jc", "jabd jb jabc j", "jbc jc jc jabcd", "jacd jc jad jbc", "jacd jabd jabcd j", "jabc jcd jabd jad", "jab jabcd j jac", "jbd jabd jabc jab", "jbc jbd jd jbcd", "j jbcd jcd jbcd", "jc jabd jbc jabc", "jcd jabcd jb jb", "ja jc jc j", "jd jac jbd jab", "jbc jbc ja jab", "jbcd jabc jad jbd", "jacd jcd jd jbc", "jabc jabcd jc j", "jabd ja jb jac", "ja jbc jabc jab", "jabd jbd jc jabd", "jd jab jbc jabd", "jbc jab jbc jc", "ja jbd jbcd jbcd", "jac jbcd jabcd jabd", "jb jad ja jbd", "jabcd j ja jb", "jab jc jb jab"};
+//        String[] forbid1 = new String[]{"cdefghijklmnopqrstuvwxyz a a a", "a cdefghijklmnopqrstuvwxyz a a", "a a cdefghijklmnopqrstuvwxyz a", "a a a cdefghijklmnopqrstuvwxyz"};
+        String[] forbid2 = new String[]{"c d e f"};
+        long startTime = System.nanoTime();
+        int i = new SmartWordToy().minPresses(start, finish, forbid2);
+        long endTime = System.nanoTime();
+
+        System.out.println("result is " + i + " with " + (endTime-startTime)/1000000 + " ms");
+
     };
     
 }
