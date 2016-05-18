@@ -104,7 +104,6 @@ public class grafixMask {
                         
                     }
                     if (area > 0) {
-                        System.out.println("add area " + area);
                         ints.add(new Integer(area));
                     }
                 }
@@ -112,13 +111,7 @@ public class grafixMask {
                 
             }
         }
-        
-        // debug
-        for (int j = 0; j<ints.size(); j++) {
-           System.out.print(ints.get(j).intValue() + " ");
-        }
-        System.out.println();
-        
+                
         Collections.sort(ints, Collections.reverseOrder());
       
         int[] r = new int[ints.size()];
@@ -160,7 +153,7 @@ public class grafixMask {
            System.out.print(ints[i] + " ");
         }
        
-        System.out.println("With " + (endTime-startTime)/1000000 + " ms");
+        System.out.println("\nWith " + (endTime-startTime)/1000000 + " ms");
         
     };
     
