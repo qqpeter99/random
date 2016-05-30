@@ -5,7 +5,7 @@
  */
 
 /**
- *
+ * Count how many ones in a long value
  * @author qianp
  */
 public class CountOnes {
