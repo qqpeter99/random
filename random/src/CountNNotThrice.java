@@ -55,9 +55,36 @@ public class CountNNotThrice {
             return result;
 	};
         
+//        Find the number only appear once, in the array where all rest number appears twice
+        public int singleNumber2X(final List<Integer> a) {
+           
+            int result = 0;
+            
+            int mask = 0x0001;
+            
+            for(int i = 0; i < 32; i++) {
+                int bitCount = 0;
+                
+                for (int j = 0; j < a.size(); j++) {
+                    int t = (Integer)a.get(j).intValue();
+                    
+                    if ( (t & ( 1 << i)) != 0) {
+                        bitCount++;
+                    }
+                }
+                
+                if (bitCount % 2 != 0) {
+                    result |= (1 << i);
+                }
+                
+            }
+            
+            return result;
+	};
+        
         public static void main(String[] arg){
             
-            int[] input = new int[]{1,2,3,3,3,2,2,1,4,1};
+            int[] input = new int[]{1,2,3,3,3,2,2,1,9,1};
             
             List<Integer> a = new ArrayList<Integer>();
             for(int i = 0; i < input.length; i++) {
@@ -67,5 +94,17 @@ public class CountNNotThrice {
             int count = new CountNNotThrice().singleNumber(a);
             
             System.out.println("The number doesn't appear thrice is " + count);
+            
+            
+            int[] input1 = new int[]{1,2,3,3,2,1,9};
+            
+            List<Integer> a1 = new ArrayList<Integer>();
+            for(int i = 0; i < input1.length; i++) {
+                a1.add(new Integer(input1[i]));
+            }
+        
+            int count1 = new CountNNotThrice().singleNumber2X(a);
+            
+            System.out.println("The number doesn't appear twice is " + count1);
         }
 }
