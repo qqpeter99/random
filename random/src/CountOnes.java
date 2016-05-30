@@ -29,13 +29,28 @@ public class CountOnes {
        
         return count;
     } 
+    
+//    Use the x & (x - 1) trick to eliminate 1 at a time
+    public int ones1(long n) {
+        
+        long t = n;
+        int count = 0;
+        
+        while (t != 0) {
+            long t1 = t & (t-1);
+            count++;
+            t = t1; 
+        }
+       
+        return count;
+    } 
      
     
     public static void main(String[] arg){
         long i = 9;
         
         
-        int count = new CountOnes().ones(i);
+        int count = new CountOnes().ones1(i);
         System.out.println("The number of 1 in " + i + " is " + count);
     }
 }
