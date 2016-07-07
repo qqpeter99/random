@@ -6,4 +6,6 @@ Key takeaways
 
 3. Use stack for flood fill
 
-4. Define the right data structure for the problem, and Collections.sort to sort a List of custom defined objects. Object can implement comparable interface "int compareTo(Object o)"
+4. Define the right data structure for the problem
+
+5. Collections.sort to sort a List of custom defined objects. Object can implement comparable interface "int compareTo(Object o)"
