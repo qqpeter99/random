@@ -6,6 +6,27 @@
 
 /**
  * Count the recursive call numbers
+ * The code is to calculate the minimum the path value by traverse the table, and generate objects in 2^n manner, 1=>2=>4=>8
+ * The time complexity is 2^
+ * -----
+ * | 1 |
+ * -----
+ * 
+ * =>
+ * 
+ * -----------
+ * | 1 | 1.1 |
+ * -----------
+ * |1.2| 
+ * 
+ * =>
+ * 
+ * -------------------------
+ * | 1   | 1.1         | 1.1.1
+ * -------------------------
+ * |1.2  | 1.1.2, 1.2.1|
+ * |1.2.2|
+ * 
  * @author qianp
  */
 import java.util.*;

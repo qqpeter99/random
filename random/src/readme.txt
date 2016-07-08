@@ -9,3 +9,6 @@ Key takeaways
 4. Define the right data structure for the problem
 
 5. Collections.sort to sort a List of custom defined objects. Object can implement comparable interface "int compareTo(Object o)"
+
+6. Max sum of contiguous sub array, file at MaxSumContinuousArray.java https://www.interviewbit.com/problems/max-sum-contiguous-subarray/. 
+The algorithm is to find all the segments with positive sums, within each segment keep tracking the sub sums to update the overall max sum. 
